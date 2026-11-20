@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Peek",
-  "version": "1.7.0",
-  "description": "Arc's Peek and Blank Window for Dia or any Chromium browser. Shift+click a link to preview it; open a light tabbed window with no profile clutter.",
+  "version": "1.7.1",
+  "description": "Arc-style Peek and Blank Window: Shift+click a link to preview it in a floating card, or open a light window with its own tabs.",
   "permissions": [
     "declarativeNetRequestWithHostAccess",
     "storage",
