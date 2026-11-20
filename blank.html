@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Blank Window</title>
+  <link rel="stylesheet" href="blank.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="side-top">
+      <span class="label">Blank Window</span>
+      <div class="nav">
+        <button class="ib" id="back" title="Back (Ctrl/⌘+[)" aria-label="Back"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
+        <button class="ib" id="forward" title="Forward (Ctrl/⌘+])" aria-label="Forward"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></button>
+        <button class="ib" id="reload" title="Reload (Ctrl/⌘+R)" aria-label="Reload"><svg viewBox="0 0 16 16"><path d="M13 8a5 5 0 1 1-1.5-3.6M13 2.5v3h-3"/></svg></button>
+      </div>
+    </div>
+
+    <button class="new-tab" id="new-tab" title="New tab (Ctrl/⌘+T)">
+      <svg viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></svg>
+      <span>New Tab</span>
+    </button>
+
+    <ul class="tabs" id="tabs" role="tablist"></ul>
+
+    <div class="side-bottom">
+      <button class="ib" id="all-to-dia" title="Move all tabs to a Dia window" aria-label="Move all tabs to a Dia window">
+        <svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 6h12M8 8.5v3M6.5 10 8 8.5 9.5 10"/></svg>
+      </button>
+      <button class="ib" id="new-tab-2" title="New tab" aria-label="New tab"><svg viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="panel" id="panel">
+      <header class="topbar" id="topbar" hidden>
+        <span class="spinner" id="spinner" hidden></span>
+        <svg class="info" id="info" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 7.5V11M8 5h.01"/></svg>
+        <div class="url" id="url" title="Edit address (Ctrl/⌘+L)"></div>
+        <div class="copied" id="copied" hidden><svg viewBox="0 0 16 16"><path d="M6.8 9.2l2.4-2.4M7.4 4.6l.9-.9a2.6 2.6 0 0 1 3.7 3.7l-.9.9M8.6 11.4l-.9.9a2.6 2.6 0 0 1-3.7-3.7l.9-.9"/></svg><span id="copied-text">Copied Current URL</span></div>
+        <button class="ib" id="copy" title="Copy link (Ctrl/⌘+Shift+C)" aria-label="Copy link"><svg viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5A1.5 1.5 0 0 0 9 1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5"/></svg></button>
+        <button class="ib" id="to-dia" title="Open in Dia (Ctrl/⌘+Shift+O)" aria-label="Open in Dia"><svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M13.5 2.5 8 8M12 9.5V13a.5.5 0 0 1-.5.5h-8A.5.5 0 0 1 3 13V5a.5.5 0 0 1 .5-.5H7"/></svg></button>
+      </header>
+      <div class="pages" id="pages">
+        <div class="hint" id="hint" hidden>
+          <span>This site won't open here.</span>
+          <button id="hint-dia">Open in Dia</button>
+        </div>
+      </div>
+      <div class="toast" id="toast" hidden></div>
+    </section>
+
+    <div class="palette-wrap" id="palette-wrap" hidden>
+      <div class="palette" role="dialog" aria-label="Search or enter URL">
+        <div class="field">
+          <svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg>
+          <input id="omni" type="text" placeholder="Search or Enter URL..." autocomplete="off" spellcheck="false">
+        </div>
+        <ul class="suggestions" id="suggestions"></ul>
+      </div>
+    </div>
+  </main>
+
+  <script src="blank.js"></script>
+</body>
+</html>

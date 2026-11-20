@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peek settings</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f6f6f7; --panel: #fff; --text: #18181b; --muted: #71717a;
+      --border: rgba(0,0,0,.09); --accent: #5b5bf0;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #131315; --panel: #1c1c1f; --text: #f4f4f5; --muted: #a1a1aa;
+              --border: rgba(255,255,255,.09); --accent: #8b8bff; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text);
+           font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+    main { max-width: 560px; margin: 48px auto; padding: 0 16px; }
+    header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    header img { width: 40px; height: 40px; }
+    h1 { font-size: 20px; margin: 0; }
+    header p { margin: 0; color: var(--muted); }
+    section { background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+              padding: 18px 20px; margin-bottom: 14px; }
+    h2 { font-size: 14px; margin: 0 0 4px; }
+    .help { color: var(--muted); margin: 0 0 12px; font-size: 13px; }
+    label.opt { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; cursor: pointer; }
+    label.opt input { margin-top: 3px; accent-color: var(--accent); }
+    label.opt small { display: block; color: var(--muted); }
+    textarea { width: 100%; min-height: 90px; resize: vertical; padding: 10px; border-radius: 8px;
+               border: 1px solid var(--border); background: transparent; color: inherit;
+               font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    kbd { font: 12px ui-monospace, Menlo, monospace; padding: 1px 6px; border-radius: 5px;
+          border: 1px solid var(--border); background: var(--bg); }
+    .saved { color: var(--accent); font-size: 13px; height: 20px; margin-top: 4px; }
+    ul.keys { margin: 0; padding-left: 18px; color: var(--muted); }
+    ul.keys li { margin: 3px 0; }
+    .shortcut { display: flex; align-items: center; gap: 12px; margin: 4px 0 10px; }
+    .shortcut span { font-weight: 600; }
+    kbd.big { font-size: 14px; padding: 4px 10px; min-width: 60px; text-align: center; }
+    .shortcut button { border: 1px solid var(--border); background: var(--bg); color: inherit; font: inherit;
+                       padding: 5px 14px; border-radius: 8px; cursor: pointer; }
+    .shortcut button:hover { border-color: var(--accent); color: var(--accent); }
+    .help.small { font-size: 12px; }
+    .shortcut button.link { border: 0; background: none; color: var(--muted); padding: 5px 4px; }
+    .shortcut button.link:hover { color: var(--accent); }
+    kbd.big.recording { border-color: var(--accent); color: var(--accent); }
+    a { color: var(--accent); }
+    ol.steps { padding-left: 20px; }
+    ol.steps li { margin: 6px 0; color: var(--text); }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <img src="icons/icon128.png" alt="">
+      <div>
+        <h1>Peek</h1>
+        <p>Preview links without leaving the page.</p>
+      </div>
+    </header>
+
+    <section>
+      <h2>Trigger</h2>
+      <p class="help">What you hold while clicking a link to peek it.</p>
+      <label class="opt"><input type="radio" name="modifier" value="shift">
+        <span><kbd>Shift</kbd> + click <small>Same as Arc. Replaces the browser's "open in new window".</small></span></label>
+      <label class="opt"><input type="radio" name="modifier" value="alt">
+        <span><kbd>Option</kbd> / <kbd>Alt</kbd> + click <small>Keeps Shift + click as the browser default.</small></span></label>
+    </section>
+
+    <section>
+      <h2>Show peeks as</h2>
+      <label class="opt"><input type="radio" name="mode" value="overlay">
+        <span>Floating card on the page <small>Arc-style. Pages that block embedding get a one-click fallback.</small></span></label>
+      <label class="opt"><input type="radio" name="mode" value="window">
+        <span>Small popup window <small>Works on every site and keeps you logged in everywhere. Closes when you click back to the main window.</small></span></label>
+    </section>
+
+    <section>
+      <h2>Always peek on these sites</h2>
+      <p class="help">Like Arc's pinned tabs: on these sites, a normal click on a link that leaves the site opens a peek. One domain per line.</p>
+      <textarea id="sites" placeholder="mail.google.com&#10;slack.com&#10;linear.app" spellcheck="false"></textarea>
+      <div class="saved" id="saved"></div>
+    </section>
+
+    <section>
+      <h2>Blank Window</h2>
+      <p class="help">A light, tabbed window without the profile sidebar. Open one with the shortcut below, or right-click the toolbar icon → <b>New Blank Window</b>.</p>
+      <div class="shortcut">
+        <span>Shortcut</span>
+        <kbd id="shortcut" class="big">…</kbd>
+        <button id="record" type="button">Change</button>
+        <button id="reset" type="button" class="link">Reset to ⌃⌥N</button>
+      </div>
+      <p class="help small" id="record-help">Works whenever a web page or a Blank Window is focused. Click <b>Change</b>, then press the new keys (include Ctrl, Option/Alt or ⌘). Esc cancels.</p>
+      <p class="help small">Want one that also works on Dia's new tab page or when Dia isn't in front? Set it on the browser's shortcuts page: <a href="#" id="browser-shortcuts">open shortcuts page</a> <span id="browser-shortcut"></span>. Browsers don't accept Ctrl+Option combos there.</p>
+      <ul class="keys">
+        <li><kbd>⌘/Ctrl</kbd> + <kbd>T</kbd> new tab · <kbd>⌘/Ctrl</kbd> + <kbd>W</kbd> close · <kbd>⌘/Ctrl</kbd> + <kbd>L</kbd> address</li>
+        <li><kbd>⌘/Ctrl</kbd> + <kbd>S</kbd> hide sidebar · <kbd>⌘/Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> send tab to Dia</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Copy URL without Dia's extra message</h2>
+      <p class="help">With a peek open, Dia's own ⌘⇧C also flashes "Copied Current URL" on the page behind it. To have only the peek's message:</p>
+      <ol class="keys steps">
+        <li>In Dia → Settings → Shortcuts, clear <b>Copy URL</b> (and <b>Copy URL as Markdown</b> if you use it).</li>
+        <li><a href="#" id="copy-shortcuts">Open the extensions shortcuts page</a> and set Peek's <b>Copy current URL</b> to ⌘⇧C (and the Markdown one to ⌥⇧⌘C).</li>
+      </ol>
+      <p class="help small">Peek then handles ⌘⇧C everywhere: the peeked page when a peek is open, the current tab in a Blank Window, and the normal tab otherwise, with one "Copied Current URL" pill.</p>
+    </section>
+
+    <section>
+      <h2>Keys inside a peek</h2>
+      <ul class="keys">
+        <li><kbd>Esc</kbd> or click outside: close</li>
+        <li><kbd>⌘/Ctrl</kbd> + <kbd>Enter</kbd>: open as a full tab</li>
+        <li>Right-click any link → <b>Peek link</b></li>
+      </ul>
+    </section>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>

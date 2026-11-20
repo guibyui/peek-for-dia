@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Peek</title>
+  <link rel="stylesheet" href="peek.css">
+</head>
+<body>
+  <div class="backdrop" id="backdrop"></div>
+
+  <section class="card" id="card" role="dialog" aria-modal="true" aria-labelledby="title" hidden>
+    <header class="bar">
+      <button class="btn" id="back" title="Back" aria-label="Back" disabled>
+        <svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg>
+      </button>
+      <button class="btn" id="reload" title="Reload (⌘/Ctrl+R)" aria-label="Reload">
+        <svg viewBox="0 0 16 16"><path d="M13 8a5 5 0 1 1-1.5-3.6M13 2.5v3h-3"/></svg>
+      </button>
+      <img class="favicon" id="favicon" alt="">
+      <div class="meta">
+        <div class="title" id="title" hidden></div>
+        <div class="url" id="url"></div>
+        <div class="copied" id="copied" hidden><svg viewBox="0 0 16 16"><path d="M6.8 9.2l2.4-2.4M7.4 4.6l.9-.9a2.6 2.6 0 0 1 3.7 3.7l-.9.9M8.6 11.4l-.9.9a2.6 2.6 0 0 1-3.7-3.7l.9-.9"/></svg><span id="copied-text">Copied Current URL</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="copy" title="Copy link" aria-label="Copy link">
+          <svg viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-.5A1.5 1.5 0 0 0 9 1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5"/></svg>
+        </button>
+        <button class="btn" id="window" title="Open in window" aria-label="Open in window">
+          <svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 6h12"/></svg>
+        </button>
+        <button class="btn" id="expand" title="Open as tab (⌘/Ctrl+Enter)" aria-label="Open as tab">
+          <svg viewBox="0 0 16 16"><path d="M9.5 2.5h4v4M13.5 2.5 8.5 7.5M6.5 13.5h-4v-4M2.5 13.5l5-5"/></svg>
+        </button>
+        <button class="btn close" id="close" title="Close (Esc)" aria-label="Close">
+          <svg viewBox="0 0 16 16"><path d="m4 4 8 8M12 4l-8 8"/></svg>
+        </button>
+      </div>
+      <div class="progress" id="progress"></div>
+    </header>
+
+    <div class="viewport" id="viewport">
+      <iframe id="frame" name="__arc_peek_frame__"></iframe>
+      <div class="hint" id="hint" hidden>
+        <span>Page not showing?</span>
+        <button id="hint-window">Open in window</button>
+        <button id="hint-tab">Open as tab</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="peek.js"></script>
+</body>
+</html>

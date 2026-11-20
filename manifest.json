@@ -1,0 +1,75 @@
+{
+  "manifest_version": 3,
+  "name": "Peek",
+  "version": "1.7.0",
+  "description": "Arc's Peek and Blank Window for Dia or any Chromium browser. Shift+click a link to preview it; open a light tabbed window with no profile clutter.",
+  "permissions": [
+    "declarativeNetRequestWithHostAccess",
+    "storage",
+    "contextMenus",
+    "favicon",
+    "clipboardWrite",
+    "history",
+    "offscreen",
+    "clipboardRead"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "peek.html",
+        "peek.css",
+        "peek.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ],
+      "use_dynamic_url": true
+    }
+  ],
+  "action": {
+    "default_title": "Peek settings (right-click for New Blank Window)",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "open-blank-window": {
+      "description": "Open a new Blank Window (works everywhere, even outside Dia)"
+    },
+    "copy-url": {
+      "description": "Copy current URL (copies the peeked page when a peek is open)"
+    },
+    "copy-url-markdown": {
+      "description": "Copy current URL as Markdown (peek-aware)"
+    }
+  }
+}
