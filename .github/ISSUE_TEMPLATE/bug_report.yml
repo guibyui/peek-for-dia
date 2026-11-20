@@ -1,0 +1,57 @@
+name: Bug report
+description: Something doesn't work as expected (a site that won't peek, a broken shortcut, a layout problem)
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Peek. For ideas and general feedback, please use [Discussions](https://github.com/guibyui/peek-for-dia/discussions) instead.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: site
+    attributes:
+      label: Site or link involved
+      description: If it only happens on one site, the page you were on and the link you peeked.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part is affected?
+      options:
+        - Peek (floating card)
+        - Blank Window
+        - Settings
+        - Copy URL / Markdown
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Peek version
+      description: Shown on chrome://extensions, for example 1.7.0.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      description: For example Dia or Chrome, with the version from the browser's About page.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
